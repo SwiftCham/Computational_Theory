@@ -2,7 +2,7 @@
 Module repository for all tasks and work from Computational Theory Module
 
 
-Task: 1:
+Task: 1: 
 task one basis itself off conversions made through bitwise operations as seen in page 48 section 2.9 of 'The C Programming langauge' 
 each unsigned integer should be be matched to a 32 bit memory address using a bitwise `&` operator, once this is done, to move each integer
 use the bitwise `<<` and `>>` operators which shift the bits to the left and right respectively, "filling vacated positions with zero".
@@ -25,3 +25,13 @@ int main(int x, int n) {
    int result = left_part | right_part // left_part(1010) + right_part(0001) = 1011
   }
 ```
+The next key part in task 1 is the ch function, which acts as a [multiplexer](https://en.wikipedia.org/wiki/Multiplexer) for the bits, we take in three inputs `X`, `Z`, 
+and `Y`, and process them through logic based on using the bitwise XOR `^` operator, we match and merge bits, this means if
+before processing we had `X = 1100` and `Y = 1010`, and `Z = 0101` using the XOR operator we process the following operation:
+- First bit: X=1, so take from Y (1)
+- Second bit: X=1, so take from Y (0)
+- Third bit: X=0, so take from Z (0)
+- Fourth bit: X=0, so take from Z (1)
+
+this gives us an output of `1001`, acting as a safe and secure way of matching two selected parts without any interference, it is worth noting the usage of bitwise NOT `~`
+which gets inverse bits from X, meaning the bit will go through if it is 0
