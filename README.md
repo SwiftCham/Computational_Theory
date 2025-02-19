@@ -3,7 +3,7 @@ Module repository for all tasks and work from Computational Theory Module
 
 
 Task: 1: 
-task one basis itself off conversions made through bitwise operations as seen in page 48 section 2.9 of 'The C Programming langauge' 
+task one basis itself off conversions made through bitwise operations as seen in page 62 section 2.9 of 'The C Programming langauge' 
 each unsigned integer should be be matched to a 32 bit memory address using a bitwise `&` operator, once this is done, to move each integer
 use the bitwise `<<` and `>>` operators which shift the bits to the left and right respectively, "filling vacated positions with zero".
 as an example to how this would work, here is an example:
