@@ -271,3 +271,55 @@ The benchmark uses the Prime Number Theorem to estimate how large a range we nee
 - We add a safety factor to ensure we find enough primes
 
 This task demonstrates fundamental concepts in number theory, algorithm analysis, and optimization techniques that are essential in time sensitive computing
+
+
+## Task 5: Roots
+In this task we extract the first 32 bits of the fractional part of the square roots of the first 100 prime numbers.
+
+**Implementation**
+
+The solution uses two main functions:
+
+- **Bit Extraction Function**: Extracts the binary representation of a number's fractional part
+```python 
+def get_fractional_bits(x: float, num_bits: int = 32) -> str:
+    # Extract fractional part
+    fractional_part = x - math.floor(x)
+    
+    # Extract bits using binary multiplication method
+    bits = ""
+    for _ in range(num_bits):
+        fractional_part *= 2
+        if fractional_part >= 1:
+            bits += "1"
+            fractional_part -= 1
+        else:
+            bits += "0"
+    
+    return bits
+```
+
+- **Square Root Processing**: Calculates square roots and extracts the fractional bits
+```python 
+def calculate_prime_sqrt_bits(n_primes: int = 100, num_bits: int = 32):
+    # Get prime numbers using the sieve function from Task 4
+    primes = sieve_of_eratosthenes(upper_bound)[:n_primes]
+    
+    # Calculate square roots and extract bits
+    results = []
+    for prime in primes:
+        sqrt_value = math.sqrt(prime)
+        fractional_bits = get_fractional_bits(sqrt_value, num_bits)
+        results.append((prime, fractional_bits))
+
+```
+
+The algorithm works by repeatedly multiplying the fractional part by 2:
+
+- If the result is ≥ 1, the next bit is 1 (and subtract 1)
+- If the result is < 1, the next bit is 0
+
+This implementation relies on the sieve_of_eratosthenes function from Task 4 to generate the prime numbers.
+
+
+## Task 6: Proof Of Work
