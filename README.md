@@ -323,3 +323,34 @@ This implementation relies on the sieve_of_eratosthenes function from Task 4 to 
 
 
 ## Task 6: Proof Of Work
+This task identifies English words with the greatest number of leading zero bits in their SHA256 hash, similar to the concept of 
+"proof of work" used in current blockchain technologies.
+
+**Implementation**
+
+The solution uses Pythons hashlib module to calculate SHA256 hashes and analyzes their binary representation:
+```python
+def get_sha256_hash(word: str) -> str:
+    # Calculate the SHA256 hash of a given word
+    hash_obj = hashlib.sha256(word.encode('utf-8'))
+    return hash_obj.hexdigest()
+
+def count_leading_zero_bits(hash_hex: str) -> int:
+    # Count the number of leading zero bits in a hash 
+    binary = bin(int(hash_hex, 16))[2:].zfill(256)
+    
+    for i, bit in enumerate(binary):
+        if bit == '1':
+            return i
+    return 256  # All zeros (extremely unlikely)
+    
+```
+**The implementation**:
+
+- Loads a dictionary of English words
+- Calculates the SHA256 hash for each word
+- Counts the leading zero bits in each hash
+- Identifies words with the most leading zero bits
+
+This task demonstrates the fundamental concept behind cryptocurrency mining, where the goal is to find inputs that produce 
+hashes with specific properties (such as leading zeros).
