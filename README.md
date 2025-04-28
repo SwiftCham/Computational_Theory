@@ -354,3 +354,60 @@ def count_leading_zero_bits(hash_hex: str) -> int:
 
 This task demonstrates the fundamental concept behind cryptocurrency mining, where the goal is to find inputs that produce 
 hashes with specific properties (such as leading zeros).
+
+
+## Task 7: Turing Machines
+This task implements a Turing machine that adds 1 to a binary number, demonstrating fundamental concepts of computation theory and automata.
+Turing Machine Design
+
+A Turing machine consists of:
+
+- A tape divided into cells (each containing a symbol)
+- A head that can read and write symbols on the tape and move left or right
+- A state register that stores the state of the machine
+- A finite table of instructions that tell the machine what to do based on its current state and the symbol it's reading
+
+**Implementation**
+The designed Turing machine uses the following states and transitions:
+States:
+- init: Initial state, moves to the rightmost bit (LSB)
+- add_one: State for adding 1 and handling carry
+- add_leading_one: State for adding a new leading 1 if necessary
+- halt: Final state when addition is complete
+The transition function is defined as:
+```python
+Format: {(current_state, current_symbol): (next_state, new_symbol, head_movement)}
+transitions = {
+    # Initialize: Move to the rightmost bit
+    ('init', '0'): ('init', '0', 'R'),
+    ('init', '1'): ('init', '1', 'R'),
+    ('init', 'B'): ('add_one', 'B', 'L'),
+    
+    # Add 1
+    ('add_one', '0'): ('halt', '1', 'N'),  # 0 -> 1, we're done
+    ('add_one', '1'): ('add_one', '0', 'L'),  # 1 -> 0, carry the 1
+    ('add_one', 'B'): ('add_leading_one', 'B', 'R'),
+    
+    # Add leading 1 if needed
+    ('add_leading_one', 'B'): ('halt', '1', 'N')
+}
+```
+**Algorithm Logic**
+
+The algorithm works by:
+
+- Moving to the rightmost bit (least significant bit)
+- Changing 0 to 1 if no carry is needed
+- Changing 1 to 0 and carrying the 1 to the left if needed
+- If all bits were 1, adding a new leading 1
+
+For example, with input 100111 (decimal 39):
+
+1. The machine processes bits from right to left
+2. It changes 1→0, 1→0, 1→0 (carrying the 1 each time)
+3. When it reaches 0, it changes it to 1 and halts
+4. The result is 101000 (decimal 40)
+
+This implementation demonstrates how even a simple Turing machine can perform
+arithmetic operations, providing insight into the foundations of computational theory.
+
