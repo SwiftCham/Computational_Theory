@@ -411,3 +411,59 @@ For example, with input 100111 (decimal 39):
 This implementation demonstrates how even a simple Turing machine can perform
 arithmetic operations, providing insight into the foundations of computational theory.
 
+
+## Task 8: Computational Complexity
+
+This task implements the bubble sort algorithm with a counter to track the number of comparisons made during sorting. 
+The implementation is then used to analyze sorting behavior across all permutations of a 5-element list.
+
+**Bubble Sort Algorithm**
+
+Bubble sort is a simple comparison-based sorting algorithm that works by repeatedly stepping through the list, 
+comparing adjacent elements, and swapping them if they are in the wrong order. The algorithm gets its name because 
+smaller elements "bubble" to the top of the list with each pass through the array.
+
+**Implementation Details**
+
+The implementation includes the following features:
+- **Comparison Counter:** Tracks the number of element comparisons performed during sorting
+- **Early Termination:** Optimises the algorithm by stopping when no swaps occur in pass
+- **Permutation Analysis:** Tests all 120 possible permutations of the list [1, 2, 3, 4, 5]
+
+
+**Mathematical Analysis**
+
+For an array of length n, bubble sort has the following complexity characteristics:
+
+- **Best-case scenario:** `O(n)` comparisons when the array is already sorted
+- **Worst-case scenario:** `O(n^2)` comparison when the array is reverse-sorted
+- **Average-case scenario:**`O(n^2)` comparisons
+
+For our specific case with `n=5`, the theoretical bounds are:
+- Minimum comparisons: `n-1 = 4` (already sorted array with early termination)
+- Maximum comparisons: `n(n-1)/2 = 10` (reverse-sorted array)
+
+**Results Analyis**
+When running bubble sort on all `5! = 120` permutations of [1, 2, 3, 4, 5], we observe distinctive patterns:
+1. **Frequency Distribution:** The number of comparisons varies across permutations, with clusters around certain values
+2. **Best Case:** The already-sorted permutation [1, 2, 3, 4, 5] requires the minimum 4 comparisons
+3. **Worst Case:** The reverse-sorted permutation [5, 4, 3, 2, 1] requires the maximum 10 comparisons
+4. **Average Performance:** Across all permutations, the algorithm averages approximately 8-9 comparisons
+
+
+This illustrates an important principle in algorithm analysis: the actual performance varies significantly based on the initial 
+ordering of elements. The early termination optimization demonstrates how practical implementations can improve upon theoretical 
+worst-case bounds for specific input patterns.
+
+**Computational Complexity Implications**
+
+The experiment confirms the theoretical analysis of bubble sort:
+
+- The `O(n²)` worst-case complexity is demonstrated by the maximum 10 comparisons needed
+- The optimization reduces comparisons for favorable input orderings
+- The distribution of comparison counts across all permutations provides insight into the algorithm's average behavior
+
+This task provides a practical demonstration of computational complexity concepts, 
+showing how theoretical analysis translates to real-world performance variations.
+
+**References**
