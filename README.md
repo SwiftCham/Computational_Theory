@@ -19,7 +19,7 @@ For example, when rotating the binary value `00...0101` (decimal 5):
 - Left rotation by 1 converts it to `00...1010` (decimal 10)
 - Right rotation by 1 wraps the rightmost bit to the beginning: `10...0010` (decimal 2147483650)
 
-The implementation uses the following bitwise operations:
+The implementation uses the following bitwise operations as described in the Python Wiki [3]:
 - `&` (AND): Masks values to ensure 32-bit bounds
 - `<<` (Left shift): Moves bits to the left, filling vacated positions with zeros
 - `>>` (Right shift): Moves bits to the right, filling vacated positions with zeros
@@ -53,8 +53,10 @@ The `maj` function performs a "majority vote" on each bit position:
 
 The implementation uses the formula: `(x & y) | (x & z) | (y & z)`
 
+These bit implemetations are the basis of many crytographic algorithms, particulary in the "Secure Hash Standard" [1]
+
 ## Task 2: Hash Function Implementation
-This task converts the classic hash function from Kernighan and Ritchie's "The C Programming Language" to Python. 
+This task converts the classic hash function from Kernighan and Ritchie's "The C Programming Language" [2] to Python. 
 The hash function is a fundamental component in data structures like hash tables and is crucial for efficient data retrieval operations.
 
 **Original C Implementation**
@@ -108,8 +110,8 @@ This polynomial form distributes strings across the hash space with minimal coll
 
 
 ## Task 3: SHA256 Padding
-This task implements the padding scheme used in the SHA256 cryptographic hash function, as specified in the NIST Federal Information 
-Processing Standards (FIPS) Publication 180-4.
+This task implements the padding scheme used in the SHA256 cryptographic hash function, as specified in the "NIST Federal Information 
+Processing Standards (FIPS) Publication 180-4" [1].
 
 **Cryptographic Significance**
 
@@ -121,7 +123,7 @@ The padding mechanism is a critical component of SHA256's security properties:
 
 **Padding Specification**
 
-According to FIPS 180-4, the padding consists of:
+According to FIPS 180-4 [1], the padding consists of:
 
 - Append a '1' bit: Add a single '1' bit to the end of the message
 - Add '0' bits: Append enough '0' bits so that the length of the padded message is congruent to 448 modulo 512
@@ -183,7 +185,7 @@ Where:
 This task implements and compares different algorithms for finding prime numbers, showcasing fundamental concepts in number theory and algorithm optimization.
 
 **Algorithm 1: Sieve of Eratosthenes**
-The Sieve of Eratosthenes is an ancient algorithm dating back to 240 BCE. It efficiently finds all prime numbers up to a given limit by systematically eliminating multiples of each prime.
+The Sieve of Eratosthenes is an ancient algorithm dating back to 240 BCE. It efficiently finds all prime numbers up to a given limit by systematically eliminating multiples of each prime an optimised implementaion can be found on the "GeeksForGeeks" website [4].
 
 **Implementation Details:**
 ```python
@@ -223,7 +225,7 @@ Result: Primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
 
 **Algorithm 2: Trial Division**
 
-Trial division is the most intuitive primality testing method. It checks each candidate number for divisibility by smaller numbers.
+Trial division is the most intuitive primality testing method. It checks each candidate number for divisibility by smaller numbers, utilising Python's Binary arithmatic operations [5].
 
 **Implementation Details:**
 ```python
@@ -246,6 +248,7 @@ def trial_division(n: int) -> List[int]:
     
     return primes
 ```
+
 **Algorithmic Complexity:**
 
 - **Time Complexity**: O(n² / log n) for the first n primes
@@ -319,16 +322,16 @@ The algorithm works by repeatedly multiplying the fractional part by 2:
 - If the result is ≥ 1, the next bit is 1 (and subtract 1)
 - If the result is < 1, the next bit is 0
 
-This implementation relies on the sieve_of_eratosthenes function from Task 4 to generate the prime numbers.
+This implementation relies on the sieve_of_eratosthenes function from Task 4 to generate the prime numbers and uses the built-in Python math module [6]
 
 
 ## Task 6: Proof Of Work
 This task identifies English words with the greatest number of leading zero bits in their SHA256 hash, similar to the concept of 
-"proof of work" used in current blockchain technologies.
+"proof of work" used in current blockchain technologies and described in Satoshi Nakamoto's original paper [7].
 
 **Implementation**
 
-The solution uses Pythons hashlib module to calculate SHA256 hashes and analyzes their binary representation:
+The solution uses Pythons hashlib module [8] to calculate SHA256 [1] hashes and analyzes their binary representation:
 ```python
 def get_sha256_hash(word: str) -> str:
     # Calculate the SHA256 hash of a given word
@@ -357,8 +360,7 @@ hashes with specific properties (such as leading zeros).
 
 
 ## Task 7: Turing Machines
-This task implements a Turing machine that adds 1 to a binary number, demonstrating fundamental concepts of computation theory and automata.
-Turing Machine Design
+This task implements a Turing machine that adds 1 to a binary number, demonstrating fundamental concepts of computation theory and automata, taking reference directly from Alan Turing's paper on the Entscheidungsproblem [10].
 
 A Turing machine consists of:
 
@@ -368,7 +370,7 @@ A Turing machine consists of:
 - A finite table of instructions that tell the machine what to do based on its current state and the symbol it's reading
 
 **Implementation**
-The designed Turing machine uses the following states and transitions:
+The designed Turing machine uses the following states and transitions following Python documentation for state machines [9]:
 States:
 - init: Initial state, moves to the rightmost bit (LSB)
 - add_one: State for adding 1 and handling carry
@@ -459,11 +461,42 @@ worst-case bounds for specific input patterns.
 
 The experiment confirms the theoretical analysis of bubble sort:
 
-- The `O(n²)` worst-case complexity is demonstrated by the maximum 10 comparisons needed
+- The `O(n²)` worst-case complexity is demonstrated by the maximum 10 comparisons needed and documented in Python's algorithmic complexity guidelines [12]
 - The optimization reduces comparisons for favorable input orderings
 - The distribution of comparison counts across all permutations provides insight into the algorithm's average behavior
 
 This task provides a practical demonstration of computational complexity concepts, 
-showing how theoretical analysis translates to real-world performance variations.
+showing how theoretical analysis translates to real-world performance variations through Big O notation [11].
 
-**References**
+
+
+## References
+
+[1]: National Institute of Standards and Technology, "FIPS PUB 180-4: Secure Hash Standard (SHS)", https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
+
+[2]: Kernighan, B.W. and Ritchie, D.M., "The C Programming Language, 2nd Edition", Prentice Hall, 1988, https://github.com/AzatAI/cs_books/blob/master/The.C.Programming.Language.2nd.Edition.pdf
+
+[3]: Python Wiki, "BitwiseOperators", https://wiki.python.org/moin/BitwiseOperators
+
+[4]: GeeksforGeeks, "Sieve of Eratosthenes", https://www.geeksforgeeks.org/sieve-of-eratosthenes/
+
+[5]: Python Documentation, "Expressions - Binary arithmetic operations", https://docs.python.org/3/reference/expressions.html
+
+[6]: Python Documentation, "math — Mathematical functions", https://docs.python.org/3/library/math.html
+
+[7]: Nakamoto, S., "Bitcoin: A Peer-to-Peer Electronic Cash System", 2008, https://bitcoin.org/bitcoin.pdf
+
+[8]: Python Documentation, "hashlib — Secure hashes and message digests", https://docs.python.org/3/library/hashlib.html
+
+[9]: Python Documentation, "Implementing State Machines", https://www.python.org/doc/essays/graphs/
+
+[10]: Turing, A.M., "On Computable Numbers, with an Application to the Entscheidungsproblem", 1936, https://www.cs.virginia.edu/~robins/Turing_Paper_1936.pdf
+
+[11]: Python Time Complexity Documentation, https://wiki.python.org/moin/TimeComplexity
+
+[12]: Python Performance Tips, "Algorithm Complexity", https://wiki.python.org/moin/PythonSpeed/PerformanceTips
+
+
+
+
+
